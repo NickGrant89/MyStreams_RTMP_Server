@@ -1,0 +1,48 @@
+<!doctype html>
+
+<head>
+
+   <!-- player skin -->
+   <link rel="stylesheet" href="skin/functional.css">
+
+   <!-- site specific styling -->
+   <style>
+   body { font: 12px "Myriad Pro", "Lucida Grande", sans-serif; text-align: center; padding-top: 5%; }
+   .flowplayer { width: 80%; }
+   </style>
+
+   <!-- for video tag based installs flowplayer depends on jQuery 1.7.2+ -->
+   <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+
+   <!-- include flowplayer -->
+   <script src="flowplayer.min.js"></script>
+
+</head>
+
+<body>
+Test Video<br>
+
+
+
+ 
+
+
+<script src="https://cdn.bootcss.com/flv.js/1.5.0/flv.min.js"></script>
+<video id="videoElement"></video>
+<script>
+    if (flvjs.isSupported()) {
+        var videoElement = document.getElementById('videoElement');
+        var flvPlayer = flvjs.createPlayer({
+            type: 'flv',
+            url: 'http://192.168.178.23:8000/live/nick2.flv'
+        });
+        flvPlayer.attachMediaElement(videoElement);
+        flvPlayer.load();
+        flvPlayer.play();
+    }
+</script>
+
+
+
+
+</body>

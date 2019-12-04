@@ -39,7 +39,7 @@ nms.on('prePublish', async (id, StreamPath, args) => {
                 let alert = new Alert();
                 alert.user = user._id;
                 alert.notification = stream_key + ' - ' + 'Connected'
-                alert.datecreated = timeDate.timeStampFull();
+                alert.datecreated = new Date().toLocaleString();
 
                 alert.save(function(err){
                     if(err){
@@ -68,7 +68,7 @@ nms.on('donePublish', async (id, StreamPath, args) => {
                 let alert = new Alert();
                 alert.user = user._id;
                 alert.notification = stream_key + ' - ' + 'Disconnected'
-                alert.datecreated = timeDate.timeStampFull();
+                alert.datecreated = new Date().toLocaleString();
 
                 alert.save(function(err){
                     if(err){

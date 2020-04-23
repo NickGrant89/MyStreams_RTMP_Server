@@ -8,7 +8,7 @@ let User = require('./models/user');
 
 let Alert = require('./models/alert');
 
-const timeDate = require('./config/timedate');
+var myInt;
 
 nms.on('prePublish', async (id, StreamPath, args) => {
     let stream_key = getStreamKeyFromStreamPath(StreamPath);
@@ -32,14 +32,18 @@ nms.on('prePublish', async (id, StreamPath, args) => {
                 session.reject();
             }
             else {
-           
+                
+                let session = nms.getSession(id);
+
                 console.log('Appoved' + ' - ' + id);
-            
+
                 // do stuff
                 let alert = new Alert();
                 alert.user = user._id;
                 alert.notification = stream_key + ' - ' + 'Connected'
                 alert.datecreated = new Date().toLocaleString();
+
+                console.log(session.ip, " - ", new Date().toLocaleString());
 
                 alert.save(function(err){
                     if(err){
@@ -49,6 +53,37 @@ nms.on('prePublish', async (id, StreamPath, args) => {
                        
                     }
                 });
+               
+                var lastConnected = {
+                    lastconnected : session.ip + " - " + new Date().toLocaleString()
+                }
+                User.updateOne({_id:user._id}, lastConnected, function(err){
+                    if(err){
+                        console.log(err);
+           
+                    }
+                    else{
+                        
+                    
+                    }
+                });
+                 myInt = setTimeout(function () {
+                    session.reject();
+                    console.log('timeout completed'); 
+                    var lastConnected = {
+                        //activated: false,
+                    }
+                    User.updateOne({_id:user._id}, lastConnected, function(err){
+                        if(err){
+                            console.log(err);
+               
+                        }
+                        else{
+                            
+                        
+                        }
+                    });
+                }, 120000); 
             }
         }
     });
@@ -69,7 +104,7 @@ nms.on('donePublish', async (id, StreamPath, args) => {
                 alert.user = user._id;
                 alert.notification = stream_key + ' - ' + 'Disconnected'
                 alert.datecreated = new Date().toLocaleString();
-
+                clearTimeout(myInt);
                 alert.save(function(err){
                     if(err){
                         console.log(err);

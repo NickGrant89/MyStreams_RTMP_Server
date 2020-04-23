@@ -16,9 +16,9 @@ const config = {
         http: {
             port: 8888,
             mediaroot: './media',
-            allow_origin: '*'
+            allow_origin: 'http://192.168.178.23:3000'
         },
-        https: {
+        /* https: {
     
       port: 8443,
         webroot: './public',
@@ -26,7 +26,7 @@ const config = {
         cert: './fullchain.pem',
         mediaroot: './media',
         allow_origin: '*',
-  },
+  }, */
         trans: {
             ffmpeg: '/usr/bin/ffmpeg',
             tasks: [

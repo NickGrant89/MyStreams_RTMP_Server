@@ -35,6 +35,8 @@ const UserSchema = mongoose.Schema({
     },
     streamkey:{type: String},
     createdate:{type: String},
+    lastconnected: {type: String},
+    lastconnected: {type: String},
     
 });
 
